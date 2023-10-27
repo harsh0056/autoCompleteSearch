@@ -7,6 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 
 
@@ -20,7 +21,35 @@ function compare( a, b ) {
   return 0;
 }
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
+const StyledTableCell=styled(TableCell)(({theme})=>({
+  backgroundColor: theme.palette.common.black,
+  color: theme.palette.common.white,
+  fontSize: 14,
+  "&:hover":{
+    background:'red'
+  }
+}))
+
+const StyledTableHead=styled(TableHead)(({theme})=>({
+  backgroundColor: theme.palette.common.black,
+  color: theme.palette.common.white,
+ 
+}))
+const StyledTableBody=styled(TableHead)(({theme})=>({
+  backgroundColor: theme.palette.common.black,
+  color: theme.palette.common.white,
+ 
+}))
 
 
 export default function BasicTable(props) {
@@ -48,26 +77,26 @@ export default function BasicTable(props) {
     <Grid container>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead >
-          <TableRow >
-            <TableCell >Name</TableCell>
-            <TableCell align="right">Followers</TableCell>
+        <StyledTableHead >
+          <StyledTableRow >
+            <StyledTableCell >Name</StyledTableCell>
+            <StyledTableCell align="right">Followers</StyledTableCell>
             
-          </TableRow>
-        </TableHead>
-        <TableBody >
+          </StyledTableRow>
+        </StyledTableHead>
+        <StyledTableBody >
           {rows.map((row) => (
-            <TableRow 
+            <StyledTableRow 
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell sortDirection='desc' component="th" scope="row">
+              <StyledTableCell sortDirection='desc' component="th" scope="row">
                 {row.login}
-              </TableCell>
-              <TableCell align="right">{row.id}</TableCell>
-            </TableRow>
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.id}</StyledTableCell>
+            </StyledTableRow>
           ))}
-        </TableBody>
+        </StyledTableBody>
       </Table>
     </TableContainer>
     </Grid>
